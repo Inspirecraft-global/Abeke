@@ -1,8 +1,8 @@
 import React from 'react';
 import ProductPageHeader from '../../components/Products/ProductPageHeader';
-import ProductFilters from '../../components/products/ProductFilters';
-import ProductGrid from '../../components/products/ProductGrid';
-import Pagination from '../../components/products/Pagination';
+import ProductFilters from '../../components/Products/ProductFilters';
+import ProductGrid from '../../components/Products/ProductGrid';
+import Pagination from '../../components/Products/Pagination';
 import useProductFilters from '../../hooks/useProductFilters';
 import { ALL_PRODUCTS } from '../../data/products';
 
