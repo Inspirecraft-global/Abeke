@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductPageHeader from '../../components/products/ProductPageHeader';
+import ProductPageHeader from '../../components/Products/ProductPageHeader';
 import ProductFilters from '../../components/products/ProductFilters';
 import ProductGrid from '../../components/products/ProductGrid';
 import Pagination from '../../components/products/Pagination';
@@ -29,7 +29,7 @@ export default function ProductsPage() {
   return (
     <div className="px-2 md:px-6 lg:px-20 py-6 text-black flex flex-col gap-6">
       <ProductPageHeader />
-      
+
       <ProductFilters
         query={query}
         onQueryChange={setQuery}

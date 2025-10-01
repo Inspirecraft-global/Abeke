@@ -38,7 +38,7 @@ export default function Testimonials() {
     );
 
   const TestimonialCard = ({ text, name, date, rating }) => (
-    <div className="bg-white rounded-2xl shadow-sm border p-6 max-w-sm">
+    <div className="bg-white rounded-2xl shadow-sm border p-6 max-w-full">
       <p className="text-gray-600 italic mb-4">“{text}”</p>
 
       <div className="flex items-center gap-4">

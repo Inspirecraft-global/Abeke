@@ -61,7 +61,7 @@ export default function HeroSection() {
           </div>
         ))}
       </div>
-      <div className="absolute text-center  font-spectral inset-0 bg-black/40 flex flex-col justify-center items-center px-4 md:px-10 lg:px-20 text-white">
+      <div className="absolute text-center  font-spectral inset-0 bg-black/80 flex flex-col justify-center items-center px-4 md:px-10 lg:px-20 text-white">
         <h2 className="text-4xl md:text-7xl font-bold   animate-fade-in-up">
           Effortless. Feminine.
         </h2>

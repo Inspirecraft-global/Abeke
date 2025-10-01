@@ -34,7 +34,9 @@ export default function CartPage() {
   return (
     <div className="px-2 md:px-6 lg:px-20 py-8">
       <div className="flex  justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold">Your Cart ({totalCount})</h1>
+        <h1 className="text-2xl font-semibold">
+          Your Cart <span className="font-outfit">({totalCount}) </span>
+        </h1>
         <button
           onClick={clear}
           className="text-red-600 hover:underline font-outfit"
