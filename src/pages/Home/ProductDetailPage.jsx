@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ALL_PRODUCTS } from '../../data/products';
 import { useCartStore } from '../../store/cart.store';
-import ProductGrid from '../../components/products/ProductGrid';
+import ProductGrid from '../../components/Products/ProductGrid';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
