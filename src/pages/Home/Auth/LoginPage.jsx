@@ -13,14 +13,15 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username.trim() || !password.trim()) return Toast.error('Email/Phone and Password are required');
+    if (!username.trim() || !password.trim())
+      return Toast.error('Email/Phone and Password are required');
 
     let formattedPassword = password.trim();
     if (/^0\d+/.test(formattedPassword)) {
       7;
       formattedPassword = formattedPassword.substring(1);
     }
-    mutate({ username, password: formattedPassword })
+    mutate({ username, password: formattedPassword });
   };
 
   return (
@@ -29,7 +30,11 @@ const LoginPage = () => {
         <div className="flex w-full justify-center items-center h-[100vh]">
           <div className="flex flex-col items-center w-full railway">
             <NavLink to="/" className="">
-              <img src='/images/logo/gccc.png' alt="GCC logo" className="w-[150px]" />
+              <img
+                src="/images/logo/gccc.png"
+                alt="GCC logo"
+                className="w-[150px]"
+              />
             </NavLink>
             <p className="px-3 -mt-5 font-medium text-center text-white railway">
               Grow deeper in your commitment to God’s house.
@@ -39,7 +44,7 @@ const LoginPage = () => {
               className="flex md:w-[450px] w-full  mt-10 flex-col  gap-3 md:px-[30px] "
               onSubmit={handleSubmit}
             >
-              {isError && <Message variant='error' data={error?.data} />}
+              {isError && <Message variant="error" data={error?.data} />}
               <div>
                 <label htmlFor="username" className="sr-only">
                   Email or Phone Number
@@ -68,13 +73,14 @@ const LoginPage = () => {
                   className="w-full  focus:outline-none py-[13px] px-2 rounded border-b-[1.8px] text-white bg-transparent"
                 />
               </div>
-              <Button type='submit' loading={isPending} size='lg'>Sign In</Button>
+              <Button type="submit" loading={isPending} size="lg">
+                Sign In
+              </Button>
             </form>
           </div>
         </div>
       </div>
     </div>
-
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ArrowDownIcon, CartIcon, ProfileIcon, SearchIcon } from '../../icons';
+import { useCartStore } from '../../store/cart.store';
 import { Dropdown } from '../ui/dropdown/Dropdown';
 import { DropdownItem } from '../ui/dropdown/DropdownItem';
 import { useAuthStore } from '../../store/auth.store';
@@ -8,8 +9,12 @@ import { useAuthStore } from '../../store/auth.store';
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { isAuthenticated, user, resetAuthenticatedUser } = useAuthStore();
   const navigate = useNavigate();
+  const cartCount = useCartStore((s) =>
+    s.items.reduce((sum, i) => sum + i.qty, 0)
+  );
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
@@ -30,8 +35,22 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMobileMenuOpen]);
 
+  // Track scroll to apply shadow/background when scrolling
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <div className="relative">
+    <div
+      className={`sticky top-0 z-50 ${
+        isScrolled
+          ? 'bg-white/90 backdrop-blur border-b border-gray-200 shadow-sm'
+          : 'bg-white'
+      }`}
+    >
       <div className="flex p-3 md:p-5 pr-4 md:pr-10">
         <div className="flex justify-between items-center w-full">
           {/* Logo */}
@@ -57,12 +76,22 @@ export default function Navbar() {
                 Home
               </NavLink>
               <NavLink
-                to="/about"
+                to="/products"
                 className="text-base font-semibold hover:text-gray-700 transition-colors"
               >
                 Products
               </NavLink>
-              <CartIcon className="text-base font-semibold hover:text-blue-600 transition-colors cursor-pointer" />
+              <div
+                className="relative cursor-pointer"
+                onClick={() => navigate('/cart')}
+              >
+                <CartIcon className="text-base font-semibold hover:text-blue-600 transition-colors" />
+                {cartCount > 0 && (
+                  <span className="absolute font-outfit -top-2 -right-2 bg-red-500 text-white text-[10px] leading-none px-1.5 py-0.5 rounded-full">
+                    {cartCount}
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* Mobile Menu Button */}

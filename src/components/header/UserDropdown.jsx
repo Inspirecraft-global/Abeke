@@ -1,16 +1,16 @@
-import { useState } from "react";
-import Button from "../ui/Button";
-import { ArrowDownIcon, LogoutIcon } from "../../icons";
-import { Dropdown } from '../../components/ui/dropdown/Dropdown'
-import Avatar from "../ui/Avatar";
-import { Image } from "../../utils/constant";
-import { useLogout } from "../../hooks/queries/auth.query";
-import { useAuthStore } from "../../store/auth.store";
+import { useState } from 'react';
+import Button from '../ui/Button';
+import { ArrowDownIcon, LogoutIcon } from '../../icons';
+import { Dropdown } from '../../components/ui/dropdown/Dropdown';
+import Avatar from '../ui/Avatar';
+import { Image } from '../../utils/constant';
+import { useLogout } from '../../hooks/queries/auth.query';
+import { useAuthStore } from '../../store/auth.store';
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, isAdmin } = useAuthStore()
-  const { mutate, isPending, isError, error } = useLogout()
+  const { user, isAdmin } = useAuthStore();
+  const { mutate, isPending, isError, error } = useLogout();
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -24,7 +24,9 @@ export default function UserDropdown() {
           <Avatar src={user?.avatar || Image} />
         </span>
 
-        <span className="block mr-1 font-medium text-theme-sm">{user?.first_name}</span>
+        <span className="block mr-1 font-medium text-theme-sm">
+          {user?.first_name}
+        </span>
         <ArrowDownIcon isOpen={isOpen} />
       </button>
 
@@ -42,7 +44,15 @@ export default function UserDropdown() {
           </span>
         </div>
 
-        <Button loading={isPending} className="mt-2" onClick={mutate} variant='neutral' startIcon={<LogoutIcon width={18} height={18} />}>Sign out</Button>
+        <Button
+          loading={isPending}
+          className="mt-2"
+          onClick={mutate}
+          variant="neutral"
+          startIcon={<LogoutIcon width={18} height={18} />}
+        >
+          Sign out
+        </Button>
       </Dropdown>
     </div>
   );

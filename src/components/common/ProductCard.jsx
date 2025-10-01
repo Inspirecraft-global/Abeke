@@ -1,5 +1,7 @@
 // components/ProductCard.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCartStore } from '../../store/cart.store';
 
 export default function ProductCard({
   image,
@@ -9,15 +11,20 @@ export default function ProductCard({
   discount,
   currency = '$',
   isNew = false,
+  id,
 }) {
+  const navigate = useNavigate();
+  const addItem = useCartStore((s) => s.addItem);
+
   return (
-    <div className="w-full font-raleway  overflow-hidden  transition ">
+    <div className="group w-full font-raleway overflow-hidden rounded-xl border border-transparent bg-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       {/* Image */}
       <div className="relative w-full h-72">
         <img
           src={image}
           alt={title}
-          className="w-full h-full object-cover rounded-xl"
+          className="w-full h-full object-cover rounded-xl transform transition-transform duration-300 group-hover:scale-105 cursor-pointer"
+          onClick={() => navigate(`/products/${id}`)}
         />
         {isNew && (
           <span className="absolute top-2 font-inter left-2 bg-lemon-200 text-white text-xs px-2 py-1 rounded-md">
@@ -33,7 +40,12 @@ export default function ProductCard({
 
       {/* Content */}
       <div className="p-3">
-        <h3 className="text-gray-800 font-medium text-base">{title}</h3>
+        <h3
+          className="text-gray-800 font-medium text-base transition-colors duration-300 group-hover:text-black cursor-pointer"
+          onClick={() => navigate(`/products/${id}`)}
+        >
+          {title}
+        </h3>
 
         <div className="flex justify-between items-center mt-2">
           <div className="flex flex-col">
@@ -49,8 +61,8 @@ export default function ProductCard({
             </div>
           </div>
           <button
-            className="bg-lemon-200 hover:bg-gray-700 text-white rounded-full w-8 h-8 flex items-center justify-center transition-colors duration-200"
-            onClick={() => console.log('Add to cart:', title)}
+            className="bg-lemon-200 hover:bg-gray-700 text-white rounded-full w-8 h-8 flex items-center justify-center transition-all duration-300 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0"
+            onClick={() => addItem({ id, title, price, image }, 1)}
           >
             <svg
               className="w-4 h-4"

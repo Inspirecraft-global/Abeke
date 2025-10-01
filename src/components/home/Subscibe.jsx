@@ -39,12 +39,12 @@ export default function Subscribe() {
             />
             <button
               type="submit"
-              className="rounded-full px-6 py-3 bg-black text-white font-semibold shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-red-300"
+              className="rounded-full px-6 py-3 bg-[#000000] text-white font-semibold shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-red-300"
             >
               Subscribe
             </button>
           </form>
-          <p className="mt-3 text-xs text-white/80">
+          <p className="mt-3 text-xs text-[#000000] opacity-75">
             We care about your privacy. Unsubscribe anytime.
           </p>
         </div>
