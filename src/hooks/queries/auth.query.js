@@ -21,7 +21,6 @@ export const useMe = (options = {}) => {
     staleTime: 10 * 60 * 1000,
     cacheTime: 15 * 60 * 1000,
     retry: (failureCount, error) => {
-      // Don't retry on auth errors
       if (error?.response?.status === 401) return false;
       return failureCount < 2;
     },
@@ -40,14 +39,11 @@ export const useLogin = (options = {}) => {
     mutationFn: AuthService.login,
     onSuccess: ({ data }) => {
       const { token, user } = data;
-
       setAuthenticatedUser({ token, user });
       queryClient.setQueryData(QUERY_KEYS.AUTH.ME, user);
-
       Toast.success(`Welcome back, ${user?.first_name}!`);
       navigate(redirect, { replace: true });
-
-      options.onSuccess?.(response, credentials);
+      options.onSuccess?.(data);
     },
     onError: (error) => {
       const message = handleApiError(error);
@@ -56,7 +52,31 @@ export const useLogin = (options = {}) => {
   });
 };
 
-// Logout mutation
+export const useGoogleAuth = (options = {}) => {
+  const queryClient = useQueryClient();
+  const { setAuthenticatedUser } = useAuthStore();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/';
+
+  return useMutation({
+    mutationFn: AuthService.googleAuth,
+    onSuccess: ({ data }) => {
+      const { token, user } = data;
+      setAuthenticatedUser({ token, user });
+      queryClient.setQueryData(QUERY_KEYS.AUTH.ME, user);
+      Toast.success(`Welcome, ${user?.first_name || user?.email}!`);
+      navigate(redirect, { replace: true });
+      options.onSuccess?.(data);
+    },
+    onError: (error) => {
+      const message = handleApiError(error);
+      Toast.error(message);
+      options.onError?.(error);
+    },
+  });
+};
+
 export const useLogout = (options = {}) => {
   const queryClient = useQueryClient();
   const { resetAuthenticatedUser } = useAuthStore();
@@ -66,7 +86,6 @@ export const useLogout = (options = {}) => {
     onSuccess: () => {
       queryClient.clear();
       resetAuthenticatedUser();
-
       Toast.info('You have been logged out successfully');
       options.onSuccess?.();
     },

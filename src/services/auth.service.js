@@ -11,6 +11,11 @@ export const AuthService = {
     return data;
   },
 
+  async googleAuth(token) {
+    const { data } = await $api.post('auth/google', { token });
+    return data;
+  },
+
   async logout() {
     const { data } = await $api.post('/logout');
     return data;

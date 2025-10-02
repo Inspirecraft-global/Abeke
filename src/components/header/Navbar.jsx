@@ -5,6 +5,7 @@ import { useCartStore } from '../../store/cart.store';
 import { Dropdown } from '../ui/dropdown/Dropdown';
 import { DropdownItem } from '../ui/dropdown/DropdownItem';
 import { useAuthStore } from '../../store/auth.store';
+import GoogleOneTap from '../../hooks/googleOneTap';
 
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -159,6 +160,9 @@ export default function Navbar() {
                       className="text-gray-700 hover:bg-gray-100"
                     >
                       Sign In
+                    </DropdownItem>
+                    <DropdownItem>
+                      <GoogleOneTap />
                     </DropdownItem>
                     <DropdownItem
                       to="/forms"

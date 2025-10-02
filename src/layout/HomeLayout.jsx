@@ -14,6 +14,7 @@ import { useAuthStore } from '../store/auth.store';
 import Advert from './Advert';
 import { useState } from 'react';
 import Footer from './Footer';
+import GoogleOneTap from '../components/auth/GoogleOneTap';
 
 const LayoutContent = () => {
   const { mutate, isPending } = useLogout();
@@ -24,6 +25,14 @@ const LayoutContent = () => {
     <div
       className={`max-w-[1940px] font-spectral text-black mx-auto shadow-card h-full`}
     >
+      {/* Google One Tap - positioned at top right */}
+      <GoogleOneTap 
+        showFallback={true}
+        position="fixed"
+        placement="top-right"
+        className="max-w-sm"
+      />
+      
       <div className="flex flex-col ">
         <div className="flex flex-col w-full">
           <div>
